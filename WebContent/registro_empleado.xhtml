@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+
+ <p:menubar>
+	  	<p:submenu label="Mantenimientos" >
+				<p:menuitem value="Departamento" url="registro_departamento.xhtml" />
+                <p:menuitem value="Empleado" url="registro_empleado.xhtml" />
+          </p:submenu>
+
+	 </p:menubar>
+
+<p:growl id="growl" life="2000" showDetail="true" />
+
+<h:form>
+	<h2>Mantenimiento de Empleado</h2>
+	<p:panelGrid columns="2">
+		
+		<h:outputText value="Nombre"></h:outputText>
+		<p:inputText 
+			value="#{empleadoManagedBean.empleado.nombre}">
+		</p:inputText>
+		<h:outputText value="DNI"></h:outputText>
+		<p:inputText 
+			value="#{empleadoManagedBean.empleado.dni}">
+		</p:inputText>
+		<h:outputText value="Fecha de Nacimiento"></h:outputText>
+		<p:calendar id="fechaNacimiento" pattern="dd/MM/yyyy"
+			value="#{empleadoManagedBean.empleado.fechaNacimiento}">
+		</p:calendar>
+		<h:outputText value="Salario"></h:outputText>
+		<p:inputText 
+			value="#{empleadoManagedBean.empleado.salario}">
+		</p:inputText>
+		<h:outputText value="Departamento"></h:outputText>
+		<p:selectOneMenu 
+			value="#{empleadoManagedBean.empleado.departamento.id}">
+			<f:selectItems 
+				value="#{empleadoManagedBean.departamentos}"
+				var="d" itemLabel="#{d.nombre}" itemValue="#{d.id}">
+			</f:selectItems>
+		</p:selectOneMenu> 
+		
+	 <h:outputText value="Estado"></h:outputText>
+		<p:selectOneMenu 
+		value="#{empleadoManagedBean.empleado.estado}">
+				<f:selectItem itemValue="A" itemLabel="Activo">
+				</f:selectItem>
+				<f:selectItem itemValue="I" itemLabel="Inactivo">
+				</f:selectItem>
+		</p:selectOneMenu>
+		
+	</p:panelGrid>
+
+	<p:commandButton value="Guardar"  ajax="false"
+		action="#{empleadoManagedBean.guardar}">
+	</p:commandButton>
+
+
+
+	<p:dataTable 
+		value="#{empleadoManagedBean.empleados}" 
+				border="1" var="e"
+				 paginator="true" rows="4" >	
+		<p:column>
+			<f:facet name="header">Id</f:facet>
+			<p:commandLink value="EDITAR"  ajax="false"
+				action="#{empleadoManagedBean.editar}">
+				<f:param name="paramId" value="#{e.id}"></f:param>
+			</p:commandLink>
+		</p:column>	
+		<p:column>
+			<f:facet name="header">Nombre</f:facet>
+			#{e.nombre}
+		</p:column>	
+		<p:column>
+			<f:facet name="header">DNI</f:facet>
+			#{e.dni}
+		</p:column>	
+			<p:column>
+			<f:facet name="header">Fecha de Nacimiento</f:facet>
+			<h:outputText value="#{e.fechaNacimiento}">
+				<f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime>
+			</h:outputText>
+		</p:column>	
+		<p:column>
+			<f:facet name="header">Departamento</f:facet>
+			#{e.departamento.nombre}
+		</p:column>		
+		<p:column>
+			<f:facet name="header">Estado</f:facet>
+			#{e.estadoDesc}
+		</p:column>		
+	</p:dataTable>
+</h:form>
+
+</html>

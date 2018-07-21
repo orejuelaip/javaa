@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:form>
+	<h2>Editar de Empleado</h2>
+	
+		<h:inputHidden 
+			value="#{empleadoManagedBean.empleado.id}">
+		</h:inputHidden>
+		
+	<h:panelGrid columns="2">
+				
+		<h:outputText value="Nombre"></h:outputText>
+		<h:inputText 
+			value="#{empleadoManagedBean.empleado.nombre}">
+		</h:inputText>
+		<h:outputText value="DNI"></h:outputText>
+		<h:inputText 
+			value="#{empleadoManagedBean.empleado.dni}">
+		</h:inputText>
+		<h:outputText value="Fecha de Nacimiento"></h:outputText>
+		<h:inputText 
+			value="#{empleadoManagedBean.empleado.fechaNacimiento}">
+			<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+		</h:inputText>
+		<h:outputText value="Salario"></h:outputText>
+		<h:inputText 
+			value="#{empleadoManagedBean.empleado.salario}">
+		</h:inputText>
+		<h:outputText value="Departamento"></h:outputText>
+		<h:selectOneMenu 
+			value="#{empleadoManagedBean.empleado.departamento.id}">
+			<f:selectItems 
+				value="#{empleadoManagedBean.departamentos}"
+				var="d" itemLabel="#{d.nombre}" itemValue="#{d.id}">
+			</f:selectItems>
+		</h:selectOneMenu> 
+		
+		<h:outputText value="Estado"></h:outputText>
+		<h:selectOneMenu 
+		value="#{empleadoManagedBean.empleado.estado}">
+				<f:selectItem itemValue="A" itemLabel="Activo">
+				</f:selectItem>
+				<f:selectItem itemValue="I" itemLabel="Inactivo">
+				</f:selectItem>
+		</h:selectOneMenu>
+		
+	</h:panelGrid>
+
+	<h:commandButton value="Actualizar" 
+		action="#{empleadoManagedBean.guardar}">
+	</h:commandButton>
+	<h:commandButton value="Eliminar" 
+		action="#{empleadoManagedBean.eliminar}">
+	</h:commandButton>
+
+</h:form>
+
+
+</html>
